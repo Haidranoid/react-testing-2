@@ -1,14 +1,7 @@
 import {createContext, useContext, useState, useMemo, useEffect} from "react";
 import {pricePerItem} from "../constants";
+import {formatCurrency} from "../utils";
 
-// format number as currency
-const formatCurrency = amount => {
-    return new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD',
-        minimumFractionDigits: 2
-    }).format(amount)
-}
 
 const OrderDetails = createContext();
 
@@ -49,7 +42,7 @@ export const OrderDetailsProvider = props => {
 
     useEffect(() => {
         const scoopsSubtotal = calculateSubtotal('scoops', optionCounts);
-        const toppingsSubtotal = calculateSubtotal('scoops', optionCounts);
+        const toppingsSubtotal = calculateSubtotal('toppings', optionCounts);
         const grandTotal = scoopsSubtotal + toppingsSubtotal;
         setTotals({
             scoops: formatCurrency(scoopsSubtotal),
